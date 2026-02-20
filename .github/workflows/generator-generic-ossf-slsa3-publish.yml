@@ -49,10 +49,8 @@ jobs:
         run: |
           set -euo pipefail
 
-          # List the artifacts the provenance will refer to.
-          files=$(ls artifact*)
-          # Generate the subjects (base64 encoded).
-          echo "hashes=$(sha256sum $files | base64 -w0)" >> "${GITHUB_OUTPUT}"
+          # Generate the subjects (base64 encoded) for all artifacts.
+          echo "hashes=$(sha256sum artifact* | base64 -w0)" >> "${GITHUB_OUTPUT}"
 
   provenance:
     needs: [build]
